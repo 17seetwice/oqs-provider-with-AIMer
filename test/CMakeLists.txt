@@ -100,7 +100,7 @@ set_tests_properties(oqs_groups
 )
 endif()
 add_executable(oqs_test_groups oqs_test_groups.c test_common.c tlstest_helpers.c)
-target_link_libraries(oqs_test_groups PRIVATE ${OPENSSL_SSL_LIBRARY} ${OPENSSL_CRYPTO_LIBRARY} ${OQS_ADDL_SOCKET_LIBS} ${REQ_LIBS_T})
+target_link_libraries(oqs_test_groups PRIVATE  ${OPENSSL_SSL_LIBRARY} ${OPENSSL_CRYPTO_LIBRARY} ${OQS_ADDL_SOCKET_LIBS} ${REQ_LIBS_T})
 
 add_test(
     NAME oqs_tlssig

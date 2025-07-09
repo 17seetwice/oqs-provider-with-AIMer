@@ -875,4 +875,24 @@ ENCODER_w_structure("p521_snova2965", p521_snova2965, der, SubjectPublicKeyInfo)
 ENCODER_w_structure("p521_snova2965", p521_snova2965, pem, SubjectPublicKeyInfo),
 ENCODER_TEXT("p521_snova2965", p521_snova2965),
 #endif
+
+#ifdef OQS_ENABLE_SIG_aimer_128f_ref
+ENCODER_w_structure("aimer_128f_ref", aimer_128f_ref, der, PrivateKeyInfo),
+ENCODER_w_structure("aimer_128f_ref", aimer_128f_ref, pem, PrivateKeyInfo),
+ENCODER_w_structure("aimer_128f_ref", aimer_128f_ref, der, EncryptedPrivateKeyInfo),
+ENCODER_w_structure("aimer_128f_ref", aimer_128f_ref, pem, EncryptedPrivateKeyInfo),
+ENCODER_w_structure("aimer_128f_ref", aimer_128f_ref, der, SubjectPublicKeyInfo),
+ENCODER_w_structure("aimer_128f_ref", aimer_128f_ref, pem, SubjectPublicKeyInfo),
+ENCODER_TEXT("aimer_128f_ref", aimer_128f_ref),
+#endif
+
+#ifdef OQS_ENABLE_SIG_aimer_192f_ref
+ENCODER_w_structure("aimer_192f_ref", aimer_192f_ref, der, PrivateKeyInfo),
+ENCODER_w_structure("aimer_192f_ref", aimer_192f_ref, pem, PrivateKeyInfo),
+ENCODER_w_structure("aimer_192f_ref", aimer_192f_ref, der, EncryptedPrivateKeyInfo),
+ENCODER_w_structure("aimer_192f_ref", aimer_192f_ref, pem, EncryptedPrivateKeyInfo),
+ENCODER_w_structure("aimer_192f_ref", aimer_192f_ref, der, SubjectPublicKeyInfo),
+ENCODER_w_structure("aimer_192f_ref", aimer_192f_ref, pem, SubjectPublicKeyInfo),
+ENCODER_TEXT("aimer_192f_ref", aimer_192f_ref),
+#endif
 ///// OQS_TEMPLATE_FRAGMENT_MAKE_END

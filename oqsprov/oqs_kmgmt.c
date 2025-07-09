@@ -1365,6 +1365,26 @@ static void *p521_snova2965_gen_init(void *provctx, int selection) {
                          "p521_snova2965", KEY_TYPE_HYB_SIG, 256, 67, 0);
 }
 
+static void *aimer_128f_ref_new_key(void *provctx) {
+    return oqsx_key_new(PROV_OQS_LIBCTX_OF(provctx), OQS_SIG_alg_aimer_128f_ref,
+                        "aimer_128f_ref", KEY_TYPE_SIG, NULL, 128, 68, 0);
+}
+
+static void *aimer_128f_ref_gen_init(void *provctx, int selection) {
+    return oqsx_gen_init(provctx, selection, OQS_SIG_alg_aimer_128f_ref, "aimer_128f_ref", 0,
+                         128, 68, 0);
+}
+
+static void *aimer_192f_ref_new_key(void *provctx) {
+    return oqsx_key_new(PROV_OQS_LIBCTX_OF(provctx), OQS_SIG_alg_aimer_192f_ref,
+                        "aimer_192f_ref", KEY_TYPE_SIG, NULL, 192, 69, 0);
+}
+
+static void *aimer_192f_ref_gen_init(void *provctx, int selection) {
+    return oqsx_gen_init(provctx, selection, OQS_SIG_alg_aimer_192f_ref, "aimer_192f_ref", 0,
+                         192, 69, 0);
+}
+
 ///// OQS_TEMPLATE_FRAGMENT_KEYMGMT_CONSTRUCTORS_END
 
 #define MAKE_SIG_KEYMGMT_FUNCTIONS(alg)                                        \
@@ -1577,6 +1597,10 @@ MAKE_SIG_KEYMGMT_FUNCTIONS(snova2455)
 MAKE_SIG_KEYMGMT_FUNCTIONS(p384_snova2455)
 MAKE_SIG_KEYMGMT_FUNCTIONS(snova2965)
 MAKE_SIG_KEYMGMT_FUNCTIONS(p521_snova2965)
+
+MAKE_SIG_KEYMGMT_FUNCTIONS(aimer_128f_ref)
+MAKE_SIG_KEYMGMT_FUNCTIONS(aimer_192f_ref)
+
 
 MAKE_KEM_KEYMGMT_FUNCTIONS(frodo640aes, OQS_KEM_alg_frodokem_640_aes, 128)
 

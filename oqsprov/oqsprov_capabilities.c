@@ -246,6 +246,7 @@ static OQS_SIGALG_CONSTANTS oqs_sigalg_list[] = {
     {0xff42, 128, TLS1_3_VERSION, 0}, {0xff43, 128, TLS1_3_VERSION, 0},
     {0xff4c, 192, TLS1_3_VERSION, 0}, {0xff4d, 192, TLS1_3_VERSION, 0},
     {0xff51, 256, TLS1_3_VERSION, 0}, {0xff52, 256, TLS1_3_VERSION, 0},
+    {0xff61, 128, TLS1_3_VERSION, 0}, {0xff62, 192, TLS1_3_VERSION, 0},
     ///// OQS_TEMPLATE_FRAGMENT_SIGALG_ASSIGNMENTS_END
 };
 
@@ -542,6 +543,10 @@ int oqs_patch_codepoints() {
     if (getenv("OQS_CODEPOINT_P521_SNOVA2965"))
         oqs_sigalg_list[67].code_point =
             atoi(getenv("OQS_CODEPOINT_P521_SNOVA2965"));
+    if (getenv("OQS_CODEPOINT_AIMER_128F_REF"))
+        oqs_sigalg_list[68].code_point = atoi(getenv("OQS_CODEPOINT_AIMER_128F_REF"));
+    if (getenv("OQS_CODEPOINT_AIMER_192F_REF"))
+        oqs_sigalg_list[69].code_point = atoi(getenv("OQS_CODEPOINT_AIMER_192F_REF"));    
     ///// OQS_TEMPLATE_FRAGMENT_CODEPOINT_PATCHING_END
     return 1;
 }
@@ -742,6 +747,12 @@ static const OSSL_PARAM oqs_param_sigalg_list[][12] = {
     OQS_SIGALG_ENTRY(snova2965, snova2965, snova2965, "1.3.9999.10.12.1", 62),
     OQS_SIGALG_ENTRY(p521_snova2965, p521_snova2965, p521_snova2965,
                      "1.3.9999.10.12.2", 63),
+#endif
+#ifdef OQS_ENABLE_SIG_aimer_128f_ref
+    OQS_SIGALG_ENTRY(aimer_128f_ref, aimer_128f_ref, aimer_128f_ref, "1.3.1234.10.1.2", 64),
+#endif
+#ifdef OQS_ENABLE_SIG_aimer_192f_ref
+    OQS_SIGALG_ENTRY(aimer_192f_ref, aimer_192f_ref, aimer_192f_ref, "1.3.1234.10.1.3", 65),
 #endif
     ///// OQS_TEMPLATE_FRAGMENT_SIGALG_NAMES_END
 };

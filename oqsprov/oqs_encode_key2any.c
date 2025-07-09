@@ -1289,6 +1289,16 @@ static int oqsx_pki_priv_to_der(const void *vxkey, unsigned char **pder) {
 #define p521_snova2965_evp_type 0
 #define p521_snova2965_input_type "p521_snova2965"
 #define p521_snova2965_pem_type "p521_snova2965"
+
+#define aimer_128f_ref_evp_type 0
+#define aimer_128f_ref_input_type "aimer_128f_ref"
+#define aimer_128f_ref_pem_type "aimer_128f_ref"
+
+#define aimer_192f_ref_evp_type 0
+#define aimer_192f_ref_input_type "aimer_192f_ref"
+#define aimer_192f_ref_pem_type "aimer_192f_ref"
+
+
 ///// OQS_TEMPLATE_FRAGMENT_ENCODER_DEFINES_END
 
 /* ---------------------------------------------------------------------- */
@@ -2676,4 +2686,20 @@ MAKE_ENCODER(, p521_snova2965, oqsx, PrivateKeyInfo, pem);
 MAKE_ENCODER(, p521_snova2965, oqsx, SubjectPublicKeyInfo, der);
 MAKE_ENCODER(, p521_snova2965, oqsx, SubjectPublicKeyInfo, pem);
 MAKE_TEXT_ENCODER(, p521_snova2965);
+
+MAKE_ENCODER(, aimer_128f_ref, oqsx, EncryptedPrivateKeyInfo, der);
+MAKE_ENCODER(, aimer_128f_ref, oqsx, EncryptedPrivateKeyInfo, pem);
+MAKE_ENCODER(, aimer_128f_ref, oqsx, PrivateKeyInfo, der);
+MAKE_ENCODER(, aimer_128f_ref, oqsx, PrivateKeyInfo, pem);
+MAKE_ENCODER(, aimer_128f_ref, oqsx, SubjectPublicKeyInfo, der);
+MAKE_ENCODER(, aimer_128f_ref, oqsx, SubjectPublicKeyInfo, pem);
+MAKE_TEXT_ENCODER(, aimer_128f_ref);
+
+MAKE_ENCODER(, aimer_192f_ref, oqsx, EncryptedPrivateKeyInfo, der);
+MAKE_ENCODER(, aimer_192f_ref, oqsx, EncryptedPrivateKeyInfo, pem);
+MAKE_ENCODER(, aimer_192f_ref, oqsx, PrivateKeyInfo, der);
+MAKE_ENCODER(, aimer_192f_ref, oqsx, PrivateKeyInfo, pem);
+MAKE_ENCODER(, aimer_192f_ref, oqsx, SubjectPublicKeyInfo, der);
+MAKE_ENCODER(, aimer_192f_ref, oqsx, SubjectPublicKeyInfo, pem);
+MAKE_TEXT_ENCODER(, aimer_192f_ref);
 ///// OQS_TEMPLATE_FRAGMENT_ENCODER_MAKE_END

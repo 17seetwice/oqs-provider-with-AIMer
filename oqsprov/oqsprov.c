@@ -58,7 +58,7 @@ extern OSSL_FUNC_provider_get_capabilities_fn oqs_provider_get_capabilities;
 #ifdef OQS_KEM_ENCODERS
 #define OQS_OID_CNT 206
 #else
-#define OQS_OID_CNT 136
+#define OQS_OID_CNT 140
 #endif
 const char *oqs_oid_alg_list[OQS_OID_CNT] = {
 
@@ -272,6 +272,10 @@ const char *oqs_oid_alg_list[OQS_OID_CNT] = {
     "snova2965",
     "1.3.9999.10.12.2",
     "p521_snova2965",
+    "aimer_128f_ref",
+    "1.3.1234.10.1.2",
+    "aimer_192f_ref",
+    "1.3.1234.10.1.3",
     ///// OQS_TEMPLATE_FRAGMENT_ASSIGN_SIG_OIDS_END
 };
 
@@ -505,6 +509,10 @@ int oqs_patch_oids(void) {
             oqs_oid_alg_list[132 + OQS_KEMOID_CNT] = envval;
         if ((envval = getenv("OQS_OID_P521_SNOVA2965")))
             oqs_oid_alg_list[134 + OQS_KEMOID_CNT] = envval;
+        if ((envval = getenv("OQS_OID_AIMER_128F_REF")))
+            oqs_oid_alg_list[136 + OQS_KEMOID_CNT] = envval;
+        if ((envval = getenv("OQS_OID_AIMER_192F_REF")))
+            oqs_oid_alg_list[138 + OQS_KEMOID_CNT] = envval;
     } ///// OQS_TEMPLATE_FRAGMENT_OID_PATCHING_END
     return 1;
 }
@@ -667,6 +675,12 @@ static const OSSL_ALGORITHM oqsprovider_signatures[] = {
 #ifdef OQS_ENABLE_SIG_snova_SNOVA_29_6_5
     SIGALG("snova2965", 256, oqs_signature_functions),
     SIGALG("p521_snova2965", 256, oqs_signature_functions),
+#endif
+#ifdef OQS_ENABLE_SIG_aimer_128f_ref
+    SIGALG("aimer128f", 128, oqs_signature_functions),
+#endif
+#ifdef OQS_ENABLE_SIG_aimer_192f_ref
+    SIGALG("aimer192f", 192, oqs_signature_functions),
 #endif
     ///// OQS_TEMPLATE_FRAGMENT_SIG_FUNCTIONS_END
     {NULL, NULL, NULL}};
@@ -860,6 +874,12 @@ static const OSSL_ALGORITHM oqsprovider_keymgmt[] = {
 #ifdef OQS_ENABLE_SIG_snova_SNOVA_29_6_5
     SIGALG("snova2965", 256, oqs_snova2965_keymgmt_functions),
     SIGALG("p521_snova2965", 256, oqs_p521_snova2965_keymgmt_functions),
+#endif
+#ifdef OQS_ENABLE_SIG_aimer_128f_ref
+    SIGALG("aimer_128f_ref", 128, oqs_aimer_128f_ref_keymgmt_functions),
+#endif
+#ifdef OQS_ENABLE_SIG_aimer_192f_ref
+    SIGALG("aimer_192f_ref", 192, oqs_aimer_192f_ref_keymgmt_functions),
 #endif
 
 #ifdef OQS_ENABLE_KEM_frodokem_640_aes

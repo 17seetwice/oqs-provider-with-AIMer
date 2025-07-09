@@ -262,4 +262,14 @@ DECODER_w_structure("snova2965", der, PrivateKeyInfo, snova2965),
 DECODER_w_structure("snova2965", der, SubjectPublicKeyInfo, snova2965),DECODER_w_structure("p521_snova2965", der, PrivateKeyInfo, p521_snova2965),
 DECODER_w_structure("p521_snova2965", der, SubjectPublicKeyInfo, p521_snova2965),
 #endif
+
+#ifdef OQS_ENABLE_SIG_aimer_128f_ref
+DECODER_w_structure("aimer_128f_ref", der, PrivateKeyInfo, aimer_128f_ref),
+DECODER_w_structure("aimer_128f_ref", der, SubjectPublicKeyInfo, aimer_128f_ref),
+#endif
+
+#ifdef OQS_ENABLE_SIG_aimer_192f_ref
+DECODER_w_structure("aimer_192f_ref", der, PrivateKeyInfo, aimer_192f_ref),
+DECODER_w_structure("aimer_192f_ref", der, SubjectPublicKeyInfo, aimer_192f_ref),
+#endif
 ///// OQS_TEMPLATE_FRAGMENT_MAKE_END

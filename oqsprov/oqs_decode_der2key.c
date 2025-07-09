@@ -805,4 +805,10 @@ MAKE_DECODER(, "snova2965", snova2965, oqsx, PrivateKeyInfo);
 MAKE_DECODER(, "snova2965", snova2965, oqsx, SubjectPublicKeyInfo);
 MAKE_DECODER(, "p521_snova2965", p521_snova2965, oqsx, PrivateKeyInfo);
 MAKE_DECODER(, "p521_snova2965", p521_snova2965, oqsx, SubjectPublicKeyInfo);
+
+MAKE_DECODER(, "aimer_128f_ref", aimer_128f_ref, oqsx, PrivateKeyInfo);
+MAKE_DECODER(, "aimer_128f_ref", aimer_128f_ref, oqsx, SubjectPublicKeyInfo);
+
+MAKE_DECODER(, "aimer_192f_ref", aimer_192f_ref, oqsx, PrivateKeyInfo);
+MAKE_DECODER(, "aimer_192f_ref", aimer_192f_ref, oqsx, SubjectPublicKeyInfo);
 ///// OQS_TEMPLATE_FRAGMENT_DECODER_MAKE_END

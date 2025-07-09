@@ -203,6 +203,10 @@ static oqs_nid_name_t nid_names[NID_TABLE_LEN] = {
     {0, "snova2965", OQS_SIG_alg_snova_SNOVA_29_6_5, KEY_TYPE_SIG, 256},
     {0, "p521_snova2965", OQS_SIG_alg_snova_SNOVA_29_6_5, KEY_TYPE_HYB_SIG,
      256},
+    {0, "aimer_128f_ref", OQS_SIG_alg_aimer_128f_ref, KEY_TYPE_SIG, 128},
+    {0, "aimer_192f_ref", OQS_SIG_alg_aimer_192f_ref, KEY_TYPE_SIG, 192},
+
+
     ///// OQS_TEMPLATE_FRAGMENT_OQSNAMES_END
 };
 

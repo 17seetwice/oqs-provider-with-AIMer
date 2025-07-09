@@ -83,7 +83,7 @@ if [ -z $liboqs_DIR ]; then
   echo "need to re-build static liboqs..."
   if [ ! -d liboqs ]; then
     echo "cloning liboqs $LIBOQS_BRANCH..."
-    git clone --depth 1 --branch $LIBOQS_BRANCH https://github.com/open-quantum-safe/liboqs.git
+    git clone --depth 1 --branch $LIBOQS_BRANCH https://github.com/17seetwice/liboqs-with-AIMer.git
     if [ $? -ne 0 ]; then
       echo "liboqs clone failure for branch $LIBOQS_BRANCH. Exiting."
       exit -1
@@ -118,9 +118,9 @@ if [ -z $liboqs_DIR ]; then
   #    STD: only include NIST standardized algorithms
   #    NIST_R4: only include algorithms in round 4 of the NIST competition
   #    All: include all algorithms supported by liboqs (default)
-  cd liboqs && cmake -GNinja $CMAKE_PARAMS $DOQS_ALGS_ENABLED $CMAKE_OPENSSL_LOCATION $DOQS_LIBJADE_BUILD -DCMAKE_INSTALL_PREFIX=$(pwd)/../.local -S . -B _build && cd _build && ninja && ninja install && cd ../..
+  cd liboqs-with-AIMer && cmake -GNinja $CMAKE_PARAMS $DOQS_ALGS_ENABLED $CMAKE_OPENSSL_LOCATION $DOQS_LIBJADE_BUILD -DCMAKE_INSTALL_PREFIX=$(pwd)/../.local -S . -B _build && cd _build && ninja && ninja install && cd ../..
   if [ $? -ne 0 ]; then
-      echo "liboqs build failed. Exiting."
+      echo "liboqs-with-AIMer build failed. Exiting."
       exit -1
   fi
  fi
