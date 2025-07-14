@@ -272,10 +272,11 @@ const char *oqs_oid_alg_list[OQS_OID_CNT] = {
     "snova2965",
     "1.3.9999.10.12.2",
     "p521_snova2965",
-    "aimer_128f_ref",
     "1.3.1234.10.1.2",
-    "aimer_192f_ref",
+    "aimer_128f_ref",
     "1.3.1234.10.1.3",
+    "aimer_192f_ref",
+
     ///// OQS_TEMPLATE_FRAGMENT_ASSIGN_SIG_OIDS_END
 };
 
@@ -677,10 +678,10 @@ static const OSSL_ALGORITHM oqsprovider_signatures[] = {
     SIGALG("p521_snova2965", 256, oqs_signature_functions),
 #endif
 #ifdef OQS_ENABLE_SIG_aimer_128f_ref
-    SIGALG("aimer128f", 128, oqs_signature_functions),
+    SIGALG("aimer_128f_ref", 128, oqs_signature_functions),
 #endif
 #ifdef OQS_ENABLE_SIG_aimer_192f_ref
-    SIGALG("aimer192f", 192, oqs_signature_functions),
+    SIGALG("aimer_192f_ref", 192, oqs_signature_functions),
 #endif
     ///// OQS_TEMPLATE_FRAGMENT_SIG_FUNCTIONS_END
     {NULL, NULL, NULL}};

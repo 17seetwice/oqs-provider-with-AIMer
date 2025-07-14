@@ -47,35 +47,51 @@ else
    export DOQS_LIBJADE_BUILD="-DOQS_LIBJADE_BUILD=$OQS_LIBJADE_BUILD"
 fi
 
-if [ -z "$OPENSSL_INSTALL" ]; then
- openssl version | grep "OpenSSL 3" > /dev/null 2>&1
- #if [ \($? -ne 0 \) -o \( ! -z "$OPENSSL_BRANCH" \) ]; then
- if [ $? -ne 0 ] || [ ! -z "$OPENSSL_BRANCH" ]; then
-   if [ -z "$OPENSSL_BRANCH" ]; then
-      export OPENSSL_BRANCH="master"
-   fi
-   # No OSSL3 installation given/found, or specific branch build requested
-   echo "OpenSSL3 to be built from source at branch $OPENSSL_BRANCH."
+#!/usr/bin/env bash
 
-   if [ ! -d "openssl" ]; then
-      echo "openssl not specified and doesn't reside where expected: Cloning and building..."
-      # for full debug build add: enable-trace enable-fips --debug
-      export OSSL_PREFIX=`pwd`/.local && git clone --depth 1 --branch $OPENSSL_BRANCH https://github.com/openssl/openssl.git && cd openssl && LDFLAGS="-Wl,-rpath -Wl,${OSSL_PREFIX}/lib64" ./config $OSSL_CONFIG --prefix=$OSSL_PREFIX && make $MAKE_PARAMS && make install_sw install_ssldirs && cd ..
-      if [ $? -ne 0 ]; then
-        echo "openssl build failed. Exiting."
-        exit -1
-      else
-         # some cmake versions don't look in "lib64", so aid their search with this softlink
-         cd $OSSL_PREFIX && if [ -d "lib64" ]; then ln -s lib64 lib; fi && cd ..
-         export OPENSSL_INSTALL=$OSSL_PREFIX
-      fi
-   else
-      if [ -d ".local" ]; then
-          export OPENSSL_INSTALL=`pwd`/.local
-      fi
-   fi
- fi
+# 1) OpenSSL 소스가 들어갈 디렉터리
+OPENSSL_SRC_DIR="/home/jaeho/quantumsafe/openssl"
+
+# 2) 설치될 prefix (빌드–>설치 위치)
+OSSL_PREFIX="$OPENSSL_SRC_DIR/.local"
+
+# 3) 아직 OPENSSL_INSTALL 이 비어있다면,
+#    시스템에 설치된 OpenSSL 버전이 3이 아니거나 OPENSSL_BRANCH 가 지정된 경우
+if [ -z "$OPENSSL_INSTALL" ]; then
+  openssl version | grep "OpenSSL 3" > /dev/null 2>&1
+  if [ $? -ne 0 ] || [ -n "$OPENSSL_BRANCH" ]; then
+    # 브랜치가 안 정해져 있으면 master
+    : ${OPENSSL_BRANCH:="master"}
+    echo "OpenSSL3 will be built from source (branch $OPENSSL_BRANCH)"
+
+    # 4) 소스 클론
+    if [ ! -d "$OPENSSL_SRC_DIR" ]; then
+      echo "Cloning OpenSSL into $OPENSSL_SRC_DIR…"
+      git clone --depth 1 --branch "$OPENSSL_BRANCH" \
+        https://github.com/openssl/openssl.git "$OPENSSL_SRC_DIR"
+    fi
+
+    # 5) 실제 빌드 & 설치
+    cd "$OPENSSL_SRC_DIR"
+    LDFLAGS="-Wl,-rpath -Wl,${OSSL_PREFIX}/lib64" \
+      ./config $OSSL_CONFIG --prefix="$OSSL_PREFIX"
+    make $MAKE_PARAMS && make install_sw install_ssldirs
+    cd - >/dev/null
+
+    # 6) lib64 → lib 심볼릭 링크 (CMake 가 lib64 를 안 보는 경우 대비)
+    if [ -d "$OSSL_PREFIX/lib64" ] && [ ! -e "$OSSL_PREFIX/lib" ]; then
+      ln -s lib64 "$OSSL_PREFIX/lib"
+    fi
+
+    # 7) 최종적으로 OPENSSL_INSTALL 환경변수 설정
+    export OPENSSL_INSTALL="$OSSL_PREFIX"
+  fi
 fi
+
+# 8) PATH/라이브러리 경로 우선순위
+export PATH="$OPENSSL_INSTALL/bin:$PATH"
+export LD_LIBRARY_PATH="$OPENSSL_INSTALL/lib:$OPENSSL_INSTALL/lib64:$LD_LIBRARY_PATH"
+
 
 # Check whether liboqs is built or has been configured:
 if [ -z $liboqs_DIR ]; then
@@ -84,6 +100,7 @@ if [ -z $liboqs_DIR ]; then
   if [ ! -d liboqs ]; then
     echo "cloning liboqs $LIBOQS_BRANCH..."
     git clone --depth 1 --branch $LIBOQS_BRANCH https://github.com/17seetwice/liboqs-with-AIMer.git
+    mv liboqs-with-AIMer liboqs
     if [ $? -ne 0 ]; then
       echo "liboqs clone failure for branch $LIBOQS_BRANCH. Exiting."
       exit -1
@@ -118,7 +135,7 @@ if [ -z $liboqs_DIR ]; then
   #    STD: only include NIST standardized algorithms
   #    NIST_R4: only include algorithms in round 4 of the NIST competition
   #    All: include all algorithms supported by liboqs (default)
-  cd liboqs-with-AIMer && cmake -GNinja $CMAKE_PARAMS $DOQS_ALGS_ENABLED $CMAKE_OPENSSL_LOCATION $DOQS_LIBJADE_BUILD -DCMAKE_INSTALL_PREFIX=$(pwd)/../.local -S . -B _build && cd _build && ninja && ninja install && cd ../..
+  cd liboqs && cmake -GNinja $CMAKE_PARAMS $DOQS_ALGS_ENABLED $CMAKE_OPENSSL_LOCATION $DOQS_LIBJADE_BUILD -DCMAKE_INSTALL_PREFIX=$(pwd)/../.local -S . -B _build && cd _build && ninja && ninja install && cd ../..
   if [ $? -ne 0 ]; then
       echo "liboqs-with-AIMer build failed. Exiting."
       exit -1
